@@ -1,0 +1,10 @@
+**/target
+**/*.class
+**/sbt-dist
+**/gradle
+
+# eclipse stuff
+**/.classpath
+**/.project
+**/.settings
+
