@@ -25,6 +25,8 @@ dependencies {
     play "com.typesafe.play:play-guice_$scalaVersion:$playVersion"
     play "com.typesafe.play:play-logback_$scalaVersion:$playVersion"
     play "com.typesafe.play:filters-helpers_$scalaVersion:$playVersion"
+    play "io.dropwizard.metrics:metrics-core:3.2.1"
+    play "aopalliance:aopalliance:1.0"
 }
 
 repositories {

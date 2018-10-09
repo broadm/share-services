@@ -2,9 +2,17 @@
 **/*.class
 **/sbt-dist
 **/gradle
+**/gradlew
+**/gradlew.bat
+**/.gradle
+**/.cache-main
+**/.cache-test
 
 # eclipse stuff
 **/.classpath
 **/.project
 **/.settings
+**/build
+**/logs
+**/bin
 
