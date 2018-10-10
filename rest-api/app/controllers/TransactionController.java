@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import annotations.Counter;
 import handler.TransactionHandler;
 import model.Transaction;
+import play.Logger;
 import play.libs.Json;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
@@ -37,6 +38,7 @@ public class TransactionController extends Controller {
 	 */
 	@Counter
 	public CompletionStage<Result> list() {
+		Logger.debug("TransactionController.list():"+this);
 		return handler.list().thenApplyAsync(transactions -> {
 			final List<Transaction> transactionList = transactions.collect(Collectors.toList());
 			return ok(Json.toJson(transactionList));

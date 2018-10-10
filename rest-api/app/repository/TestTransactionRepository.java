@@ -9,14 +9,13 @@ import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import model.Transaction;
+import play.Logger;
 
-@Singleton
 public class TestTransactionRepository implements TransactionRepository {
 	
-	private static final List<Transaction> TEST_DATA = Arrays.asList(
+	public static final List<Transaction> TEST_DATA = Arrays.asList(
 			new Transaction(new Date(), 100, "ASOS", 99.88),
 			new Transaction(new Date(), 200, "BP", 599.88));
 	
@@ -29,6 +28,7 @@ public class TestTransactionRepository implements TransactionRepository {
 
 	@Override
 	public CompletionStage<Stream<Transaction>> list() {
+		Logger.debug("TransactionRepository.list():"+this);
 		return supplyAsync(() -> TEST_DATA.stream(), ec);
 	}
 

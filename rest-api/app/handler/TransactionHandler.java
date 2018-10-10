@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import javax.inject.Inject;
 
 import model.Transaction;
+import play.Logger;
 import play.libs.concurrent.HttpExecutionContext;
 import repository.TransactionRepository;
 
@@ -22,6 +23,7 @@ public class TransactionHandler {
 	}
 
 	public CompletionStage<Stream<Transaction>> list() {
+		Logger.debug("TransactionHandler.list():"+this);
 		return repository.list().thenApplyAsync(transactionStream -> {
 			return transactionStream;
 		}, ec.current());
