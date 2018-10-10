@@ -11,9 +11,10 @@ import handler.TransactionHandler;
 import model.Transaction;
 import play.Logger;
 import play.libs.Json;
-import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
+import repository.TransactionExecutionContext;
 
 /**
  * This controller contains actions that handle HTTP requests to the
@@ -21,11 +22,11 @@ import play.mvc.Result;
  */
 public class TransactionController extends Controller {
 
-	private final HttpExecutionContext ec;
+	private final TransactionExecutionContext ec;
 	private final TransactionHandler handler;
 
 	@Inject
-	public TransactionController(HttpExecutionContext ec, TransactionHandler handler) {
+	public TransactionController(TransactionExecutionContext ec, TransactionHandler handler) {
 		this.ec = ec;
 		this.handler = handler;
 	}
@@ -39,10 +40,11 @@ public class TransactionController extends Controller {
 	@Counter
 	public CompletionStage<Result> list() {
 		Logger.debug("TransactionController.list():"+this);
+		Logger.debug("context:"+Http.Context.current().id());
 		return handler.list().thenApplyAsync(transactions -> {
 			final List<Transaction> transactionList = transactions.collect(Collectors.toList());
 			return ok(Json.toJson(transactionList));
-		}, ec.current());
+		}, ec);
 	}
 
 }

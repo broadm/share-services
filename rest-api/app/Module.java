@@ -34,7 +34,7 @@ public class Module extends AbstractModule {
     @Override
     public void configure() {
     	bind(MetricRegistry.class).toProvider(MetricRegistryProvider.class).asEagerSingleton();
-        bind(TransactionRepository.class).to(TestTransactionRepository.class);
+        bind(TransactionRepository.class).to(TestTransactionRepository.class).asEagerSingleton();
         
         MethodInterceptor counterInterceptor = new CounterInterceptor();
         bindInterceptor(any(), annotatedWith(Counter.class), counterInterceptor);
