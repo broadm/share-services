@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ui';
+
+  doSomething(): void {
+    console.log("Doing something...");
+  }
 }
