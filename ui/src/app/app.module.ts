@@ -6,11 +6,13 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './/app-routing.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
