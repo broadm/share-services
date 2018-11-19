@@ -1,11 +1,33 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from './core/auth.service';
+import { of } from 'rxjs';
+
 describe('AppComponent', () => {
+
+  const user = {
+    uid: '123',
+    email: 'test@email.com',
+    displayName: 'Joe Blogs',
+    photoURL: 'http://photo.url/'
+  };
+
   beforeEach(async(() => {
+    const authServiceSpy = jasmine.createSpyObj('AuthService', ['user']);
+    authServiceSpy.user = of(user);
+
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
+      providers: [
+        AppComponent,
+        { provide: AuthService, useValue: authServiceSpy }
+      ],
+      imports: [
+        RouterTestingModule,
+      ]
     }).compileComponents();
   }));
   it('should create the app', async(() => {
@@ -24,4 +46,9 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Welcome to ui!');
   }));
+  it('user should be set', async() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.user).toEqual(user);
+  });
 });

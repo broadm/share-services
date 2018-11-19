@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { AuthService } from '../core/auth.service';
 import { UserProfileComponent } from './user-profile.component';
 
 describe('UserProfileComponent', () => {
@@ -7,8 +7,11 @@ describe('UserProfileComponent', () => {
   let fixture: ComponentFixture<UserProfileComponent>;
 
   beforeEach(async(() => {
+    const authServiceSpy = jasmine.createSpy('AuthService');
+
     TestBed.configureTestingModule({
-      declarations: [ UserProfileComponent ]
+      declarations: [ UserProfileComponent ],
+      providers: [ UserProfileComponent, { provide: AuthService, useValue: authServiceSpy }]
     })
     .compileComponents();
   }));
