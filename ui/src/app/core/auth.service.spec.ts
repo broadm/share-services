@@ -1,9 +1,14 @@
-import { TestBed, inject, async } from '@angular/core/testing';
+import { TestBed, inject, async, tick, fakeAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { routes } from '../app-routing.module';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { LoginComponent } from '../login/login.component';
+import { AuthGuard } from './auth.guard';
 
 describe('AuthService', () => {
 
@@ -34,10 +39,15 @@ describe('AuthService', () => {
       providers: [
         AuthService,
         { provide: AngularFireAuth, useValue: mockAngularFireAuth },
-        { provide: AngularFirestore, useValue: ngFirestoreSpy }
+        { provide: AngularFirestore, useValue: ngFirestoreSpy },
+        AuthGuard
       ],
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes(routes),
+      ],
+      declarations: [
+        UserProfileComponent,
+        LoginComponent
       ]
     });
 
@@ -54,13 +64,16 @@ describe('AuthService', () => {
     });
   }));
 
-  it('user should be signed in', inject([AuthService], (service: AuthService) => {
+  it('user should be signed in', inject([AuthService], fakeAsync((service: AuthService) => {
     service.googleLogin();
     testUserPromise.then(() => {
       expect(ngFirestoreSpy.doc).toHaveBeenCalledWith('users/123');
       expect(ngFirestoreDocumentSpy.set).toHaveBeenCalledWith(testUser, { merge: true });
+      var router = TestBed.get(Router);
+      tick();
+      expect(router.location.path()).toBe('/user-profile');
     });
-  }));
+  })));
 
   describe('no auth available', () => {
     beforeEach(() => {
