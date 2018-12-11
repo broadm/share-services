@@ -4,10 +4,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './core/auth.guard';
+import { StocksComponent } from './stocks/stocks.component';
+import { AddStockComponent } from './stocks/add-stock/add-stock.component';
 
 export const routes: Routes = [
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'stocks', component: StocksComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({

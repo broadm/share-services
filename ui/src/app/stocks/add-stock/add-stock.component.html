@@ -1,0 +1,25 @@
+<div class="container" *ngIf="auth.user | async as user">
+  <form (ngSubmit)="stocksService.addStock(user.uid, stock); stockForm.reset()" #stockForm="ngForm">
+    <div class="form-group">
+      <label for="type">Type</label>
+      <input class="form-control" [(ngModel)]="stock.type" name="type" required />
+    </div>
+    <div class="form-group">
+      <label for="ticker">Ticker</label>
+      <input class="form-control" [(ngModel)]="stock.ticker" name="ticker" required />
+    </div>
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input class="form-control" [(ngModel)]="stock.date" name="date" required />
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input class="form-control" [(ngModel)]="stock.price" name="price" required />
+    </div>
+    <div class="form-group">
+      <label for="units">Units</label>
+      <input class="form-control" [(ngModel)]="stock.units" name="units" required />
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="!stockForm.form.valid">Add</button>
+  </form>
+</div>

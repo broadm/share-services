@@ -11,6 +11,9 @@ export const environment = {
     projectId: "share-services",
     storageBucket: "share-services.appspot.com",
     messagingSenderId: "198821648121"
+  },
+  alphavantage: {
+    apiKey: "X6LFE5D5SAPI8P2R"
   }
 };
 

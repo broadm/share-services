@@ -9,6 +9,8 @@ import { routes } from '../app-routing.module';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { LoginComponent } from '../login/login.component';
 import { AuthGuard } from './auth.guard';
+import { StocksComponent } from '../stocks/stocks.component';
+import { FormsModule } from '@angular/forms';
 
 describe('AuthService', () => {
 
@@ -28,9 +30,10 @@ describe('AuthService', () => {
   };
 
   let testUserPromise = Promise.resolve({ 'user': testUser });
+  let signoutPromise = Promise.resolve();
 
   const mockAngularFireAuth = {
-    auth: jasmine.createSpyObj('auth', ['signInWithPopup']),
+    auth: jasmine.createSpyObj('auth', ['signInWithPopup', 'signOut']),
     authState: of(authState)
   };
 
@@ -44,16 +47,19 @@ describe('AuthService', () => {
       ],
       imports: [
         RouterTestingModule.withRoutes(routes),
+        FormsModule
       ],
       declarations: [
         UserProfileComponent,
-        LoginComponent
+        LoginComponent,
+        StocksComponent
       ]
     });
 
     ngFirestoreSpy.doc.and.returnValue(ngFirestoreDocumentSpy);
     ngFirestoreDocumentSpy.valueChanges.and.returnValue(of(testUser));
     mockAngularFireAuth.auth.signInWithPopup.and.returnValue(testUserPromise);
+    mockAngularFireAuth.auth.signOut.and.returnValue(signoutPromise);
   });
 
   it('should set user from service', inject([AuthService], (service: AuthService) => {
@@ -72,6 +78,16 @@ describe('AuthService', () => {
       var router = TestBed.get(Router);
       tick();
       expect(router.location.path()).toBe('/user-profile');
+    });
+  })));
+
+  it('user should be signed out', inject([AuthService], fakeAsync((service: AuthService) => {
+    service.signOut();
+
+    signoutPromise.then(() => {
+      var router = TestBed.get(Router);
+      tick();
+      expect(router.location.path()).toBe('/');
     });
   })));
 

@@ -1,0 +1,25 @@
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <th>Ticker</th>
+      <th>Date</th>
+      <th>Price</th>
+      <th>Current Price</th>
+      <th>Units</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stock of aggregatorService.stocks$ | async">
+        <td>{{stock.ticker}}</td>
+        <td>{{stock.date}}</td>
+        <td>{{stock.price}}</td>
+        <td>{{stock.currentPrice}}</td>
+        <td>{{stock.units}}</td>
+        <td><button *ngIf="auth.user | async as user" 
+          class="btn btn-success" 
+          (click)="stocksService.deleteStock(user.uid, stock)">X</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<app-add-stock></app-add-stock>
