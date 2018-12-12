@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Stock, StocksService, StockType } from './stocks.service';
 import { AlphaVantageProviderService } from '../providers/alpha-vantage-provider.service';
 import { Observable, of } from 'rxjs';
-import { switchMap, map, filter } from 'rxjs/operators';
+import { switchMap, map, filter, flatMap, tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 export interface AggregateStock extends Stock {
@@ -26,16 +26,16 @@ export class AggregatorService {
         var aggregatedStocks = stocks as AggregateStock[];
         aggregatedStocks.forEach(stock => {
           this.providerService.price(stock.ticker).subscribe(value => {
-            stock.currentPrice = value["05. price"];
+            stock.currentPrice = value.price;
           });
         })
         return of(aggregatedStocks);
       }))
   }
 
-  getBuyList(): Observable<AggregateStock[]> {
+  getSellStocks(): Observable<AggregateStock[]> {
     return this.stocks$.pipe(
-      map(stocks => stocks.filter(stock => stock.type === StockType.Buy))
+      map(stocks => stocks.filter(stock => stock.type === StockType.Sell))
     );
   }
 }

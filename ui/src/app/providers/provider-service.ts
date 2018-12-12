@@ -8,5 +8,5 @@ export interface ProviderService {
 }
 
 export interface StockQuote {
-    "05. price": number;
+    price: number;
 }

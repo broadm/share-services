@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { switchMap, map, filter } from 'rxjs/operators';
+import { switchMap, map, pluck, filter } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { ProviderService, StockQuote } from './provider-service';
@@ -21,8 +21,13 @@ export class AlphaVantageProviderService implements ProviderService {
 
   price(ticker: string): Observable<StockQuote> {
     return this.http.get(`${baseUrl}&function=${avFunctions.GLOBAL_QUOTE}&symbol=${ticker}`).pipe(
-      map(data => data['Global Quote'])
-    );
+      pluck('Global Quote'),
+      map(data => {
+        return {
+          price: data['05. price']
+        } as StockQuote;
+      }
+    ))
   }
 
   search(term: string): Observable<string[]> {

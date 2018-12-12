@@ -10,6 +10,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginComponent } from './login/login.component';
 import { StocksComponent } from './stocks/stocks.component';
 import { AddStockComponent } from './stocks/add-stock/add-stock.component';
+import { StockTypePipe } from './pipes/stock-type.pipe';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AddStockComponent } from './stocks/add-stock/add-stock.component';
     UserProfileComponent,
     LoginComponent,
     StocksComponent,
-    AddStockComponent
+    AddStockComponent,
+    StockTypePipe
   ],
   imports: [
     BrowserModule,
