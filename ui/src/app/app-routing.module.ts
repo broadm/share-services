@@ -10,7 +10,8 @@ import { AddStockComponent } from './stocks/add-stock/add-stock.component';
 export const routes: Routes = [
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'stocks', component: StocksComponent, canActivate: [AuthGuard] }
+  { path: 'stocks', component: StocksComponent, canActivate: [AuthGuard] },
+  { path: 'add-stock', component: AddStockComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({

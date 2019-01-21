@@ -14,8 +14,4 @@ export class AppComponent {
     auth.user.subscribe(user => this.user = user);
   }
 
-  doSomething(): void {
-    console.log("Doing something...");
-    console.log(this.user);
-  }
 }

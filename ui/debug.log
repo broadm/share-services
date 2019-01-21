@@ -3,3 +3,7 @@
 [1114/095601.635:ERROR:http_transport_win.cc(273)] WinHttpSendRequest: The server name or address could not be resolved (0x2ee7)
 [1120/100957.882:ERROR:file_io_win.cc(170)] CreateFile C:\Users\mark_\AppData\Local\Temp\karma-27255733\Crashpad\reports\5a7336cd-0f1d-4b95-8053-df206a419e7f.dmp: The system cannot find the path specified. (0x3)
 [1120/100957.883:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
+[1123/151109.234:ERROR:file_io_win.cc(170)] CreateFile C:\Users\mark_\AppData\Local\Temp\karma-88786406\Crashpad\reports\42afcc21-8cc2-486c-993c-e477e1e284e9.dmp: The system cannot find the path specified. (0x3)
+[1123/151109.235:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
+[1129/131923.629:ERROR:file_io_win.cc(170)] CreateFile C:\Users\mark_\AppData\Local\Temp\karma-62614344\Crashpad\reports\eb0562ba-3d02-4c2e-84fa-775dfd7c3905.dmp: The system cannot find the path specified. (0x3)
+[1129/131923.657:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed

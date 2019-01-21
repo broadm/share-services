@@ -81,7 +81,7 @@ describe('StocksService', () => {
     const newDocId = "new-doc1";
     firestoreSpy.createId.and.returnValue(newDocId);
 
-    service.addStock(testStocks[0]);
+    service.addStock(testUser.uid, testStocks[0]);
 
     expect(firestoreSpy.createId).toHaveBeenCalled();
     expect(collectionSpy.doc).toHaveBeenCalledWith(newDocId);
@@ -89,7 +89,7 @@ describe('StocksService', () => {
   }));
 
   it('should delete stock', inject([StocksService], (service: StocksService) => {
-    service.deleteStock(testStocks[1]);
+    service.deleteStock(testUser.uid, testStocks[1]);
 
     expect(collectionSpy.doc).toHaveBeenCalledWith(testStocks[1].id);
     expect(documentSpy.delete).toHaveBeenCalled();
@@ -100,7 +100,7 @@ describe('StocksService', () => {
     collectionSpy.doc.calls.reset();
     documentSpy.set.calls.reset();
 
-    service.addStock(null);
+    service.addStock(testUser.uid, null);
 
     expect(firestoreSpy.createId).not.toHaveBeenCalled();
     expect(collectionSpy.doc).not.toHaveBeenCalled();

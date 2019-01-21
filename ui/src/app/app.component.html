@@ -1,4 +1,3 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
     Welcome to {{ title }}!
@@ -10,16 +9,24 @@
   Hi {{ user ? user.displayName : 'GUEST' }} !!!
 </div>
 
-<ul>
-  <li>
-    <h2><a routerLink="/user-profile">User Profile</a></h2>
-  </li>
-  <li>
-    <h2><button (click)="doSomething()">doSomething</button></h2>
-  </li>
-  <li>
-    <h2><a routerLink="/stocks">Stocks</a></h2>
-  </li>
-</ul>
+<mat-sidenav-container>
 
-<router-outlet></router-outlet>
+  <mat-sidenav mode="side" opened>
+    <mat-nav-list>
+      <mat-list-item>
+        <h2><a routerLink="/user-profile">Profile</a></h2>
+      </mat-list-item>
+      <mat-list-item>
+        <h2><a routerLink="/stocks">Stocks</a></h2>
+      </mat-list-item>
+      <mat-list-item>
+        <h2><a routerLink="/add-stock">Add</a></h2>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

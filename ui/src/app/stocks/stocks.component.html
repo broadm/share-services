@@ -1,29 +1,42 @@
-<ul #stockType class="nav nav-pills">
-  <li class="active"><button (click)="$stockType = null">All</button></li>
-  <li><button (click)="$stockType = 'Buy'">Buy</button></li>
-  <li><button (click)="$stockType = 'Sell'">Sell</button></li>
-</ul>
+<mat-tab-group (selectedTabChange)="currentView = $event.tab.textLabel">
+  <mat-tab label="Buy"></mat-tab>
+  <mat-tab label="Sell"></mat-tab>
+</mat-tab-group>
 
-<div class="table-responsive">
-  <table class="table table-striped table-sm">
-    <thead>
-      <th>Ticker</th>
-      <th>Date</th>
-      <th>Price</th>
-      <th>Current Price</th>
-      <th>Units</th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let stock of aggregatorService.stocks$ | async | stockType:$stockType">
-        <td>{{stock.ticker}}</td>
-        <td>{{stock.date}}</td>
-        <td>{{stock.price}}</td>
-        <td>{{stock.currentPrice}}</td>
-        <td>{{stock.units}}</td>
-        <td><button *ngIf="auth.user | async as user" class="btn btn-success" (click)="stocksService.deleteStock(user.uid, stock)">X</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<app-add-stock></app-add-stock>
+<table mat-table [dataSource]="stocksService.stocks$ | async | stockType:currentView">
+
+  <ng-container matColumnDef="ticker">
+    <th mat-header-cell *matHeaderCellDef> Ticker </th>
+    <td mat-cell *matCellDef="let stock"> {{stock.ticker}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef> Date </th>
+    <td mat-cell *matCellDef="let stock"> {{stock.date.seconds * 1000 | date:"dd/MM/yyyy"}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Buy/Sell Price </th>
+    <td mat-cell *matCellDef="let stock"> {{stock.price}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="currentPrice">
+    <th mat-header-cell *matHeaderCellDef> Current Price </th>
+    <td mat-cell *matCellDef="let stock"> {{stock.currentPrice}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="units">
+    <th mat-header-cell *matHeaderCellDef> Units </th>
+    <td mat-cell *matCellDef="let stock"> {{stock.units}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> Delete? </th>
+    <td mat-cell *matCellDef="let stock">
+        <button mat-button color="warn" *ngIf="auth.user | async as user" (click)="stocksService.deleteStock(user.uid, stock)">X</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

@@ -1,8 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Stock, StocksService } from '../core/stocks.service';
-import { AggregatorService } from '../core/aggregator.service';
+import { Component, OnInit } from '@angular/core';
+import { StocksService, StockType } from '../core/stocks.service';
 import { AuthService } from '../core/auth.service';
-import { User } from 'firebase';
 
 @Component({
   selector: 'app-stocks',
@@ -11,13 +9,16 @@ import { User } from 'firebase';
 })
 export class StocksComponent implements OnInit {
 
+  currentView: string = 'Buy';
+  displayedColumns: string[] = [ 'ticker', 'date', 'price', 'currentPrice', 'units', 'delete' ];
+
   constructor(
     private stocksService: StocksService,
-    private aggregatorService: AggregatorService, 
     private auth: AuthService
     ) {}
 
   ngOnInit() {
-    
+
   };
+
 }
