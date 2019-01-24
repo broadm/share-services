@@ -16,6 +16,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteDailogComponent } from '../stocks/stocks.component';
+
 
 export const DateFormat = {
   parse: {
@@ -46,7 +49,8 @@ export const DateFormat = {
     MatInputModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   exports: [
     MatAutocompleteModule,
@@ -59,9 +63,9 @@ export const DateFormat = {
     MatInputModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
-  declarations: [],
   providers: [
     AuthService,
     AuthGuard,

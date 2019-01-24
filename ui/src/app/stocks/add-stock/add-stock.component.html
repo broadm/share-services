@@ -1,5 +1,5 @@
-<div>
-  <form (ngSubmit)="stocksService.addStock(user.uid, stock); stockForm.reset(); showAddContainer=false" #stockForm="ngForm">
+<div *ngIf="auth.user | async as user">
+  <form (ngSubmit)="stocksService.addStock(user.uid, stock); stockForm.reset();" #stockForm="ngForm">
     <p>
       <mat-form-field>
         <mat-label>Type</mat-label>
@@ -7,7 +7,6 @@
           <mat-option value="Buy">Buy</mat-option>
           <mat-option value="Sell">Sell</mat-option>
         </mat-select>
-        <!-- <input matInput [(ngModel)]="stock.type" name="type" required /> -->
       </mat-form-field>
     </p>
     <p>
@@ -42,6 +41,6 @@
         <input matInput [(ngModel)]="stock.units" name="units" required />
       </mat-form-field>
     </p>
-    <button mat-button type="submit" [disabled]="!stockForm.form.valid">Add</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!stockForm.form.valid">Add</button>
   </form>
 </div>

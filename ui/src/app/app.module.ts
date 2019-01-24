@@ -8,9 +8,10 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './/app-routing.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginComponent } from './login/login.component';
-import { StocksComponent } from './stocks/stocks.component';
+import { StocksComponent, DeleteDailogComponent } from './stocks/stocks.component';
 import { AddStockComponent } from './stocks/add-stock/add-stock.component';
 import { StockTypePipe } from './pipes/stock-type.pipe';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserProfileComponent,
     LoginComponent,
     StocksComponent,
+    DeleteDailogComponent,
     AddStockComponent,
     StockTypePipe
   ],
@@ -29,6 +31,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule,
     BrowserAnimationsModule
+  ],
+  entryComponents: [
+    DeleteDailogComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

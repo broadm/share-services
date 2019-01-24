@@ -3,5 +3,5 @@
   <img  [src]="user.photoURL">
   <p>UID: {{ user.uid }}</p>
   <p>Favorite Color: {{ user?.favoriteColor }} </p>
-  <button (click)="auth.signOut()">Logout</button>
+  <button mat-raised-button color="primary" (click)="auth.signOut()">Logout</button>
 </div>
