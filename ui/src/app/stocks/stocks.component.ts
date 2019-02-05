@@ -2,16 +2,25 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { StocksService, Stock } from '../core/stocks.service';
 import { AuthService } from '../core/auth.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-stocks',
   templateUrl: './stocks.component.html',
-  styleUrls: ['./stocks.component.css']
+  styleUrls: ['./stocks.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0', visibility: 'hidden'})),
+      state('expanded', style({height: '*', visibility: 'visible'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class StocksComponent implements OnInit {
 
   currentView: string = 'Buy';
-  displayedColumns: string[] = [ 'ticker', 'date', 'price', 'currentPrice', 'units', 'bookCost', 'marketValue', 'gain','delete' ];
+  transactionColumns: string[] = [ 'date', 'price', 'currentPrice', 'units', 'bookCost', 'marketValue', 'gain','delete' ];
+  displayedColumns: string[] = [ 'ticker', 'price', 'currentPrice', 'units', 'bookCost', 'marketValue', 'gain' ];
 
   constructor(
     private stocksService: StocksService,

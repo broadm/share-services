@@ -1,3 +1,51 @@
 table {
     width: 100%;
 }
+
+tr.stock-detail-row {
+    height: 0;
+  }
+  
+  tr.stock-element-row:not(.stock-expanded-row):hover {
+    background: #f5f5f5;
+  }
+  
+  tr.stock-element-row:not(.stock-expanded-row):active {
+    background: #efefef;
+  }
+  
+  .stock-element-row td {
+    border-bottom-width: 0;
+  }
+
+  .stock-element-row:not(.expanded) {
+    cursor: pointer;
+  }
+  
+  .stock-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .stock-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+  }
+  
+  .stock-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+  }
+  
+  .stock-element-description {
+    padding: 16px;
+  }
+  
+  .stock-element-description-attribution {
+    opacity: 0.5;
+  }

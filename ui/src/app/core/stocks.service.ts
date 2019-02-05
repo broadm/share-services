@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import { AggregatorService, AggregateStock } from './aggregator.service';
+import { AggregatorService, AggregateStock, StockSummary } from './aggregator.service';
 import * as moment from 'moment';
 
 export enum StockType {
@@ -26,7 +26,7 @@ export interface Stock {
 })
 export class StocksService {
 
-  private stocks$: Observable<AggregateStock[]>;
+  private stocks$: Observable<StockSummary[]>;
 
   constructor(
     private afs: AngularFirestore,
@@ -41,7 +41,7 @@ export class StocksService {
         const id = a.payload.doc.id;
         return { id, ...data };
       }))
-      ,map(stocks => this.aggregatorService.aggregateStocks(stocks))
+      ,map(stocks => this.aggregatorService.aggregateStocks(stocks as AggregateStock[]))
     );
   }
 
@@ -58,9 +58,5 @@ export class StocksService {
     if (stockData) {
       this.afs.collection<Stock>(`stocks/${uid}/data`).doc(stockData.id).delete();
     }
-  }
-
-  searchTickers(term: string): Observable<string[]> {
-    return of(["1", "2"]);
   }
 }
