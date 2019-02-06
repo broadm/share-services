@@ -10,7 +10,10 @@ import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { LoginComponent } from '../login/login.component';
 import { AuthGuard } from './auth.guard';
 import { StocksComponent } from '../stocks/stocks.component';
+import { AddStockComponent } from '../stocks/add-stock/add-stock.component';
 import { FormsModule } from '@angular/forms';
+import { CoreModule } from './core.module';
+import { StockTypePipe } from '../pipes/stock-type.pipe';
 
 describe('AuthService', () => {
 
@@ -47,12 +50,15 @@ describe('AuthService', () => {
       ],
       imports: [
         RouterTestingModule.withRoutes(routes),
-        FormsModule
+        FormsModule,
+        CoreModule
       ],
       declarations: [
         UserProfileComponent,
         LoginComponent,
-        StocksComponent
+        StocksComponent,
+        AddStockComponent,
+        StockTypePipe
       ]
     });
 

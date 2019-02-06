@@ -1,9 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { StocksService } from '../core/stocks.service';
-import { testStocks } from '../core/stocks.service.spec';
+import { testTransactions } from '../core/stocks.service.spec';
 import { StocksComponent } from './stocks.component';
 import { FormsModule } from '@angular/forms';
+import { CoreModule } from '../core/core.module';
+import { StockTypePipe } from '../pipes/stock-type.pipe';
+import { AuthService } from '../core/auth.service';
+import { MatDialog } from '@angular/material';
 
 describe('StocksComponent', () => {
   let component: StocksComponent;
@@ -16,11 +20,19 @@ describe('StocksComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StocksComponent ],
-      imports: [ FormsModule ],
+      declarations: [ 
+        StocksComponent,
+        StockTypePipe
+      ],
+      imports: [ 
+        FormsModule,
+        CoreModule
+      ],
       providers: [
         StocksComponent, 
-          { provide: StocksService, useValue: stocksServiceSpy }
+          { provide: StocksService, useValue: stocksServiceSpy },
+          { provide: AuthService, useValue: jasmine.createSpy('AuthService') },
+          { provide: MatDialog, useValue: jasmine.createSpy('MatDialog') }
       ]
     })
     .compileComponents();
@@ -29,7 +41,7 @@ describe('StocksComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(StocksComponent);
     component = fixture.componentInstance;
-    stocksServiceSpy.getStocks.and.returnValue(of(testStocks));
+    stocksServiceSpy.getStocks.and.returnValue(of(testTransactions));
     fixture.detectChanges();
   });
 

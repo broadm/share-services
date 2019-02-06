@@ -26,7 +26,7 @@ export interface Stock {
 })
 export class StocksService {
 
-  private stocks$: Observable<StockSummary[]>;
+  stocks$: Observable<StockSummary[]>;
 
   constructor(
     private afs: AngularFirestore,

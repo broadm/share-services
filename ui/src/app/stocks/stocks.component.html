@@ -12,62 +12,6 @@
     <td mat-cell *matCellDef="let stock"> {{stock.ticker}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-      <div class="stock-element-detail" 
-          [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-          <table mat-table [dataSource]="element.transactions">
-
-            <ng-container matColumnDef="date">
-              <th mat-header-cell *matHeaderCellDef> Date </th>
-              <td mat-cell *matCellDef="let transaction"> {{transaction.date.seconds * 1000 | date:"dd/MM/yyyy"}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="units">
-              <th mat-header-cell *matHeaderCellDef> Units </th>
-              <td mat-cell *matCellDef="let transaction"> {{transaction.units}} </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="price">
-              <th mat-header-cell *matHeaderCellDef> {{currentView}} Price </th>
-              <td mat-cell *matCellDef="let transaction"> {{transaction.price | number:'1.0-2'}}p </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="currentPrice">
-              <th mat-header-cell *matHeaderCellDef> Current Price </th>
-              <td mat-cell *matCellDef="let transaction"> {{transaction.currentPrice | number:'1.0-2'}}p </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="bookCost">
-              <th mat-header-cell *matHeaderCellDef> Book Cost </th>
-              <td mat-cell *matCellDef="let transaction"> £{{transaction.bookCost | number:'1.0-2'}} </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="marketValue">
-              <th mat-header-cell *matHeaderCellDef> Market Value </th>
-              <td mat-cell *matCellDef="let transaction"> £{{transaction.marketValue | number:'1.0-2'}} </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="gain">
-              <th mat-header-cell *matHeaderCellDef> Gain </th>
-              <td mat-cell *matCellDef="let transaction"> £{{transaction.gain | number:'1.0-2'}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="delete">
-              <th mat-header-cell *matHeaderCellDef> Delete? </th>
-              <td mat-cell *matCellDef="let transaction">
-                <button mat-button color="warn" *ngIf="auth.user | async as user" (click)="openDeleteDialog(user.uid, transaction)">X</button>
-              </td>
-            </ng-container>
-
-            <!-- <tr mat-header-row *matHeaderRowDef="transactionColumns"></tr> -->
-            <tr mat-row *matRowDef="let element; columns: transactionColumns;"></tr>
-
-          </table>
-      </div>
-    </td>
-  </ng-container>
-
   <ng-container matColumnDef="units">
     <th mat-header-cell *matHeaderCellDef> Units </th>
     <td mat-cell *matCellDef="let stock"> {{stock.units}} </td>
@@ -96,6 +40,49 @@
   <ng-container matColumnDef="gain">
     <th mat-header-cell *matHeaderCellDef> Gain </th>
     <td mat-cell *matCellDef="let stock"> £{{stock.gain | number:'1.0-2'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+      <div class="stock-element-detail" 
+          [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <table mat-table [dataSource]="element.transactions">
+
+            <ng-container matColumnDef="date">
+              <td mat-cell *matCellDef="let transaction">
+                <button mat-button color="warn" *ngIf="auth.user | async as user" (click)="openDeleteDialog(user.uid, transaction)">X</button>{{transaction.date.seconds * 1000 | date:"dd/MM/yyyy"}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="units">
+              <td mat-cell *matCellDef="let transaction"> {{transaction.units}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="price">
+              <td mat-cell *matCellDef="let transaction"> {{transaction.price | number:'1.0-2'}}p </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="currentPrice">
+              <td mat-cell *matCellDef="let transaction"> {{transaction.currentPrice | number:'1.0-2'}}p </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="bookCost">
+              <td mat-cell *matCellDef="let transaction"> £{{transaction.bookCost | number:'1.0-2'}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="marketValue">
+              <td mat-cell *matCellDef="let transaction"> £{{transaction.marketValue | number:'1.0-2'}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="gain">
+              <td mat-cell *matCellDef="let transaction"> £{{transaction.gain | number:'1.0-2'}} </td>
+            </ng-container>
+
+            <tr mat-row *matRowDef="let element; columns: transactionColumns;"></tr>
+
+          </table>
+      </div>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

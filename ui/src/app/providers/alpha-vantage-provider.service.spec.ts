@@ -3,9 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { AlphaVantageProviderService } from './alpha-vantage-provider.service';
 
 describe('AlphaVantageProviderService', () => {
+  let httpClientSpy = jasmine.createSpy('HttpClient');
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AlphaVantageProviderService, HttpClient]
+      providers: [
+        AlphaVantageProviderService, 
+        { provide: HttpClient, useValue: httpClientSpy }
+      ]
     });
   });
 

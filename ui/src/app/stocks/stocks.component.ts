@@ -19,7 +19,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 export class StocksComponent implements OnInit {
 
   currentView: string = 'Buy';
-  transactionColumns: string[] = [ 'date', 'price', 'currentPrice', 'units', 'bookCost', 'marketValue', 'gain','delete' ];
+  transactionColumns: string[] = [ 'date', 'price', 'currentPrice', 'units', 'bookCost', 'marketValue', 'gain' ];
   displayedColumns: string[] = [ 'ticker', 'price', 'currentPrice', 'units', 'bookCost', 'marketValue', 'gain' ];
 
   constructor(
